@@ -7,22 +7,19 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN echo 'Etc/UTC' > /etc/timezone && \
     ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
     apt-get update && \
-    apt-get install -q -y --no-install-recommends tzdata && \
-    rm -rf /var/lib/apt/lists/*
-
-# Install necessary packages
-RUN apt-get update && apt-get install -q -y --no-install-recommends \
+    apt-get install -q -y --no-install-recommends \
+    build-essential \
+    curl \
     dirmngr \
+    git \
     gnupg2 \
     lsb-release \
+    python3-dev \
+    python3-pip \
     sudo \
-    curl \
-    git \
+    tzdata \
     vim \
     wget \
-    build-essential \
-    python3-pip \
-    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Setup sources.list
@@ -49,10 +46,10 @@ ARG USER_GID=$USER_UID
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
-
-# Switch to the non-root user
-USER $USERNAME
+RUN groupadd --gid "$USER_GID" "$USERNAME" \
+    && useradd --uid "$USER_UID" --gid "$USER_GID" -m "$USERNAME" \
+    && echo "$USERNAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/"$USERNAME" \
+    && chmod 0440 /etc/sudoers.d/"$USERNAME"
 
 # Setup entrypoint
 COPY ./ros_entrypoint.sh /

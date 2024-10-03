@@ -6,5 +6,19 @@
   "C_Cpp.default.includePath": ["${workspaceFolder}/**"],
   "C_Cpp.default.defines": [],
   "C_Cpp.default.forcedInclude": [],
-  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json"
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "files.associations": {
+    "*.cpp": "cpp",
+    "*.h": "cpp"
+  },
+  "C_Cpp.loggingLevel": "Information",
+  "ros.distro": "foxy"
 }
