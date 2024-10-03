@@ -1,24 +1,18 @@
 {
-    "name": "ROS 2 Development",
-    "image": "osrf/ros:humble-desktop",
-    "features": {
-        "ghcr.io/devcontainers/features/common-utils:2": {
-            "installZsh": "true",
-            "username": "vscode",
-            "upgradePackages": "true"
-        },
-        "ghcr.io/devcontainers/features/git:1": {}
+    "name": "ROS 2 Humble Development Environment",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
     },
-    "runArgs": ["--privileged"],
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y python3-pip",
     "customizations": {
         "vscode": {
             "extensions": [
                 "ms-python.python",
                 "ms-vscode.cpptools",
                 "twxs.cmake",
-                "redhat.vscode-yaml"
+                "ms-azuretools.vscode-docker"
             ]
         }
-    }
+    },
+    "remoteUser": "vscode"
 }
